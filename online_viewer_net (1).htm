@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sōl - Premium Hoodies</title>
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #0a0a0a;
+            color: #e0e0e0;
+            overflow-x: hidden;
+        }
+        .ident-container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #0a0a0a, #1a1a1a);
+            overflow: hidden;
+        }
+        .logo {
+            font-size: 120px;
+            font-weight: 900;
+            letter-spacing: 8px;
+            color: transparent;
+            background: linear-gradient(45deg, #ff7e5f, #feb47b, #ffcccb, #ff7e5f);
+            background-size: 300%;
+            -webkit-background-clip: text;
+            animation: gradient-animation 8s infinite alternate;
+            position: relative;
+            z-index: 2;
+            text-transform: uppercase;
+        }
+        .logo::after {
+            content: 'Sōl';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            color: #fff;
+            opacity: 0;
+            animation: fade-in-out 4s ease-in-out forwards;
+        }
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+        .particle {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            box-shadow: 0 0 15px rgba(255, 126, 95, 0.8);
+            animation: particle-float 6s infinite ease-in-out;
+        }
+        @keyframes gradient-animation {
+            0% {
+                background-position: 0% 50%;
+            }
+            100% {
+                background-position: 100% 50%;
+            }
+        }
+        @keyframes fade-in-out {
+            0% {
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+            }
+        }
+        @keyframes particle-float {
+            0% {
+                transform: translateY(0) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(calc(var(--x) * 100vw));
+                opacity: 0;
+            }
+        }
+        header {
+            background-color: #0a0a0a;
+            color: #fff;
+            padding: 15px 0;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        header h1 {
+            font-size: 28px;
+            margin: 0;
+        }
+        nav {
+            background-color: #0a0a0a;
+            padding: 10px 0;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 10px;
+            font-size: 16px;
+            transition: color 0.3s ease, text-shadow 0.3s ease;
+            position: relative;
+            display: inline-block;
+            padding: 8px 12px;
+        }
+        nav a:hover {
+            color: #ff7e5f;
+            text-shadow: 0 0 10px rgba(255, 126, 95, 0.6);
+        }
+        nav a::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: #ff7e5f;
+            transition: width 0.3s ease;
+        }
+        nav a:hover::before {
+            width: 100%;
+        }
+        section {
+            padding: 80px 20px;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            font-weight: bold;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: #fff;
+        }
+        p {
+            font-size: 16px;
+            line-height: 1.7;
+            max-width: 800px;
+            margin: 0 auto 30px;
+            color: #ccc;
+        }
+        .model-container {
+            perspective: 1000px;
+            width: 100%;
+            height: 400px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 30px 0;
+        }
+        .model-viewer {
+            width: 95%;
+            height: 100%;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            background-color: #1a1a1a;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        footer {
+            background-color: #0a0a0a;
+            color: #aaa;
+            text-align: center;
+            padding: 25px 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        footer p {
+            margin: 0;
+            font-size: 14px;
+        }
+        .luxury-text {
+            color: #ff7e5f;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        /* Instagram Button Styles */
+        .instagram-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: linear-gradient(45deg, #ff7e5f, #feb47b);
+            color: white;
+            text-decoration: none;
+            padding: 14px 28px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(255, 126, 95, 0.4);
+            margin: 20px auto;
+            max-width: 280px;
+        }
+        
+        .instagram-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(255, 126, 95, 0.6);
+            background: linear-gradient(45deg, #ff6b4a, #fea76b);
+        }
+        
+        .instagram-button:active {
+            transform: translateY(0);
+        }
+        
+        .instagram-icon {
+            width: 22px;
+            height: 22px;
+            fill: white;
+        }
+        
+        /* Add Instagram button to footer */
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        /* Feature highlighting styles */
+        .feature-highlight {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .highlight-particle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: rgba(255, 126, 95, 0.8);
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(255, 126, 95, 0.6);
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        /* Mobile-specific adjustments */
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 80px;
+                letter-spacing: 6px;
+            }
+            
+            h2 {
+                font-size: 28px;
+                letter-spacing: 1px;
+            }
+            
+            p {
+                font-size: 15px;
+                line-height: 1.6;
+            }
+            
+            .model-container {
+                height: 300px;
+            }
+            
+            nav a {
+                margin: 0 8px;
+                font-size: 15px;
+                padding: 6px 10px;
+            }
+            
+            section {
+                padding: 60px 15px;
+            }
+            
+            .instagram-button {
+                padding: 12px 24px;
+                font-size: 15px;
+                max-width: 250px;
+            }
+            
+            .instagram-icon {
+                width: 20px;
+                height: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo {
+                font-size: 60px;
+                letter-spacing: 4px;
+            }
+            
+            header h1 {
+                font-size: 24px;
+            }
+            
+            h2 {
+                font-size: 24px;
+            }
+            
+            p {
+                font-size: 14px;
+            }
+            
+            .model-container {
+                height: 250px;
+            }
+            
+            nav {
+                padding: 8px 0;
+            }
+            
+            nav a {
+                margin: 0 6px;
+                font-size: 14px;
+                padding: 5px 8px;
+            }
+            
+            section {
+                padding: 50px 10px;
+            }
+            
+            .instagram-button {
+                padding: 10px 20px;
+                font-size: 14px;
+                max-width: 220px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="ident-container">
+        <div class="logo">Sōl</div>
+        <div class="particles" id="dynamic-particles"></div>
+    </div>
+    <header>
+        <h1>Sōl</h1>
+    </header>
+    <nav>
+        <a href="#home">Home</a>
+        <a href="#features">Features</a>
+        <a href="#model">3D Model</a>
+        <a href="#contact">Contact</a>
+    </nav>
+    <section id="home" class="feature-highlight">
+        <h2><span class="luxury-text">Luxury</span> Redefined</h2>
+        <p>Our hoodie is crafted with premium materials and designed for maximum comfort and style. It's perfect for everyday wear.</p>
+        <a href="https://www.instagram.com/w1ngg00" target="_blank" class="instagram-button">
+            <svg class="instagram-icon" viewBox="0 0 24 24">
+                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+            </svg>
+            @w1ngg00
+        </a>
+    </section>
+    <section id="features" class="feature-highlight">
+        <h2>Why Choose Our Hoodie?</h2>
+        <p>Our hoodie is crafted with premium materials and designed for maximum comfort and style. It's perfect for everyday wear, whether you're relaxing at home or out on the town.</p>
+    </section>
+    <section id="model" class="feature-highlight">
+        <h2>Explore the Hoodie in 3D</h2>
+        <p>Rotate the model to see every detail of our meticulously designed hoodie.</p>
+        <div class="model-container">
+            <model-viewer class="model-viewer" 
+                         src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@dev/examples/models/gltf/LeePerrySmith/LeePerrySmith.glb" 
+                         alt="Y2K Hoodie 3D Model" 
+                         ar 
+                         ar-modes="webxr scene-viewer quick-look" 
+                         camera-controls
+                         auto-rotate
+                         rotation-per-second="10deg">
+            </model-viewer>
+        </div>
+    </section>
+    <footer>
+        <div class="footer-content">
+            <a href="https://www.instagram.com/w1ngg00" target="_blank" class="instagram-button">
+                <svg class="instagram-icon" viewBox="0 0 24 24">
+                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                </svg>
+                @w1ngg00
+            </a>
+            <p>&copy; 2023 Sōl. All rights reserved.</p>
+        </div>
+    </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Create dynamic particles for the logo
+            const particlesContainer = document.getElementById('dynamic-particles');
+            const particleCount = 50;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                
+                // Random properties
+                const size = Math.random() * 6 + 2;
+                const x = Math.random() * 100;
+                const y = Math.random() * 100;
+                const duration = Math.random() * 4 + 3;
+                const delay = Math.random() * 2;
+                const opacity = Math.random() * 0.6 + 0.2;
+                
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${x}vw`;
+                particle.style.top = `${y}vh`;
+                particle.style.opacity = opacity;
+                particle.style.animationDuration = `${duration}s`;
+                particle.style.animationDelay = `${delay}s`;
+                particle.style.background = `rgba(255, ${Math.floor(Math.random() * 100 + 100)}, ${Math.floor(Math.random() * 100 + 100)}, ${opacity})`;
+                particle.style.boxShadow = `0 0 ${Math.random() * 10 + 5}px rgba(255, 126, 95, ${opacity * 0.8})`;
+                
+                // Add floating animation with random movement
+                particle.style.animation = `float-${i} ${duration}s infinite ease-in-out`;
+                
+                particlesContainer.appendChild(particle);
+                
+                // Create unique keyframe animation for each particle
+                const style = document.createElement('style');
+                style.innerHTML = `
+                    @keyframes float-${i} {
+                        0%, 100% {
+                            transform: translate(0, 0) scale(1);
+                            opacity: ${opacity * 0.3};
+                        }
+                        25% {
+                            transform: translate(${(Math.random() - 0.5) * 100}px, ${(Math.random() - 0.5) * 100}px) scale(${Math.random() * 0.5 + 0.8});
+                            opacity: ${opacity};
+                        }
+                        50% {
+                            transform: translate(${(Math.random() - 0.5) * 150}px, ${(Math.random() - 0.5) * 150}px) scale(${Math.random() * 0.8 + 0.6});
+                            opacity: ${opacity * 0.8};
+                        }
+                        75% {
+                            transform: translate(${(Math.random() - 0.5) * 80}px, ${(Math.random() - 0.5) * 80}px) scale(${Math.random() * 0.6 + 0.9});
+                            opacity: ${opacity * 0.6};
+                        }
+                    }
+                `;
+                document.head.appendChild(style);
+            }
+
+            // Feature highlighting with particles
+            const featureSections = document.querySelectorAll('.feature-highlight');
+            const highlightParticles = [];
+            
+            // Create highlight particles
+            function createHighlightParticles(count) {
+                const particles = [];
+                for (let i = 0; i < count; i++) {
+                    const particle = document.createElement('div');
+                    particle.className = 'highlight-particle';
+                    particle.style.opacity = '0';
+                    document.body.appendChild(particle);
+                    particles.push(particle);
+                }
+                return particles;
+            }
+            
+            highlightParticles.push(...createHighlightParticles(20));
+            
+            // Function to highlight a section
+            function highlightSection(section, particles) {
+                const rect = section.getBoundingClientRect();
+                const centerX = rect.left + rect.width / 2;
+                const centerY = rect.top + rect.height / 2;
+                
+                particles.forEach((particle, index) => {
+                    // Position particles around the section
+                    const angle = (index / particles.length) * Math.PI * 2;
+                    const radius = Math.min(rect.width, rect.height) * 0.3;
+                    const x = centerX + Math.cos(angle) * radius;
+                    const y = centerY + Math.sin(angle) * radius;
+                    
+                    particle.style.left = `${x}px`;
+                    particle.style.top = `${y}px`;
+                    particle.style.opacity = '1';
+                    particle.style.transition = 'all 0.8s ease-out';
+                    
+                    // Animate particles to move towards center
+                    setTimeout(() => {
+                        particle.style.left = `${centerX}px`;
+                        particle.style.top = `${centerY}px`;
+                        particle.style.transform = 'scale(1.5)';
+                    }, 100);
+                    
+                    // Fade out after highlighting
+                    setTimeout(() => {
+                        particle.style.opacity = '0';
+                        particle.style.transform = 'scale(0)';
+                    }, 1200);
+                });
+            }
+            
+            // Intersection observer for feature sections
+            const featureObserverOptions = {
+                root: null,
+                rootMargin: '-20% 0px -20% 0px',
+                threshold: 0.1
+            };
+            
+            let lastHighlighted = null;
+            
+            const featureObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && entry.target !== lastHighlighted) {
+                        lastHighlighted = entry.target;
+                        // Highlight this section
+                        highlightSection(entry.target, highlightParticles);
+                        
+                        // Also trigger the normal fade-in animation
+                        entry.target.classList.add('visible');
+                    } else if (!entry.isIntersecting) {
+                        entry.target.classList.remove('visible');
+                    }
+                });
+            }, featureObserverOptions);
+            
+            featureSections.forEach(section => featureObserver.observe(section));
+
+            // Original section observer for fade-in
+            const sections = document.querySelectorAll('section');
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.2
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, observerOptions);
+
+            sections.forEach(section => observer.observe(section));
+
+            // Automatically scroll to the main content after the ident animation
+            setTimeout(() => {
+                window.scrollTo({
+                    top: window.innerHeight,
+                    behavior: 'smooth'
+                });
+            }, 4000);
+        });
+    </script>
+    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+</body>
+</html>
