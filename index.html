@@ -545,7 +545,7 @@
             <li><a href="#home">Home</a></li>
             <li><a href="#web-design">Web Design</a></li>
             <li><a href="#fashion">Fashion</a></li>
-            <li><a href="#contact">Contact</a></li>
+            <li><a href="contact.html" target="_blank">Contact</a></li>
         </ul>
     </nav>
 
@@ -622,16 +622,6 @@
                         <p>Curated pieces from the 80s and 90s with unique character</p>
                     </div>
                 </div>
-            </div>
-        </section>
-
-        <!-- Contact Section -->
-        <section id="contact">
-            <h2 class="section-title">Get In Touch</h2>
-            <div class="about-content">
-                <p>Interested in collaborating on a creative project? Whether it's a groundbreaking web experience or a fashion-forward concept, I'm always open to new opportunities.</p>
-                <br>
-                <p>Feel free to reach out through any of the channels below. I'm excited to connect with fellow creatives and explore how we can bring innovative ideas to life.</p>
             </div>
         </section>
     </div>
@@ -754,37 +744,40 @@
             }, Math.random() * baseInterval + (isMobile ? 200 : 100));
         }
 
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('nav a, .tag-item').forEach(anchor => {
+        // Smooth scrolling for navigation links (except contact)
+        document.querySelectorAll('nav a:not([href*="contact.html"])').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
-                if (this.classList.contains('tag-item')) {
-                    e.preventDefault();
-                    const targetId = this.getAttribute('data-target');
-                    const targetElement = document.getElementById(targetId);
-                    
-                    // Update active state
-                    document.querySelectorAll('.tag-item').forEach(item => {
-                        item.classList.remove('active');
-                    });
-                    this.classList.add('active');
-                    
-                    // Scroll to section
-                    const offset = window.innerWidth < 768 ? 60 : 80;
-                    window.scrollTo({
-                        top: targetElement.offsetTop - offset,
-                        behavior: 'smooth'
-                    });
-                } else {
-                    e.preventDefault();
-                    const targetId = this.getAttribute('href');
-                    const targetElement = document.querySelector(targetId);
-                    
-                    const offset = window.innerWidth < 768 ? 60 : 80;
-                    window.scrollTo({
-                        top: targetElement.offsetTop - offset,
-                        behavior: 'smooth'
-                    });
-                }
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                const offset = window.innerWidth < 768 ? 60 : 80;
+                window.scrollTo({
+                    top: targetElement.offsetTop - offset,
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Tag items still scroll to sections
+        document.querySelectorAll('.tag-item').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('data-target');
+                const targetElement = document.getElementById(targetId);
+                
+                // Update active state
+                document.querySelectorAll('.tag-item').forEach(item => {
+                    item.classList.remove('active');
+                });
+                this.classList.add('active');
+                
+                // Scroll to section
+                const offset = window.innerWidth < 768 ? 60 : 80;
+                window.scrollTo({
+                    top: targetElement.offsetTop - offset,
+                    behavior: 'smooth'
+                });
             });
         });
 
