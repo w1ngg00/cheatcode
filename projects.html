@@ -66,7 +66,7 @@
             align-items: center;
         }
 
-        /* Back to Home Link */
+        /* Back to Home Link - FIXED Z-INDEX */
         .back-home {
             position: fixed;
             top: 20px;
@@ -80,6 +80,8 @@
             backdrop-filter: blur(10px);
             background: rgba(0, 0, 0, 0.5);
             border: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 100; /* Added explicit z-index to ensure it's clickable */
+            cursor: pointer; /* Added cursor pointer for better UX */
         }
 
         .back-home:hover, .back-home:focus {
