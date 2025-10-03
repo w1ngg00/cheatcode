@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#000000">
+    <title>Projects - w1ng00</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nosifer&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            background: linear-gradient(135deg, #000000, #1a1a1a, #000000);
+            color: #f0f0f0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+            line-height: 1.6;
+        }
+
+        /* Stars Background */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle var(--duration, 3s) infinite ease-in-out;
+            opacity: var(--opacity, 0.7);
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        /* Main Content */
+        .container {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            margin: 0 auto;
+            padding: 0 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Back to Home Link */
+        .back-home {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            color: #c0c0c0;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 8px 16px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .back-home:hover, .back-home:focus {
+            color: white;
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        /* Projects Section */
+        .projects-section {
+            text-align: center;
+            max-width: 800px;
+            padding: 60px 40px;
+            background: rgba(20, 20, 20, 0.7);
+            border-radius: 25px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .projects-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+            z-index: -1;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 6vw, 3rem);
+            margin-bottom: 40px;
+            text-align: center;
+            background: linear-gradient(45deg, #ffffff, #f0f0f0);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-weight: 700;
+            font-family: 'Nosifer', cursive;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #ffffff, transparent);
+        }
+
+        .project-info {
+            margin: 30px 0 50px;
+            line-height: 2;
+            font-size: clamp(1rem, 3vw, 1.2rem);
+        }
+
+        .project-info p {
+            margin: 15px 0;
+            color: #b0b0b0;
+        }
+
+        /* View Project Button - Centered */
+        .view-project-btn {
+            padding: 18px 40px;
+            border: none;
+            border-radius: 30px;
+            font-size: clamp(1.1rem, 3.5vw, 1.3rem);
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            background: linear-gradient(135deg, #6b21a8, #8b5cf6);
+            color: white;
+            box-shadow: 0 12px 30px rgba(139, 92, 246, 0.4);
+            margin: 0 auto;
+            width: fit-content;
+        }
+
+        .view-project-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                rgba(255, 255, 255, 0.15) 0%,
+                rgba(255, 255, 255, 0.25) 50%,
+                rgba(255, 255, 255, 0.15) 100%);
+            transform: translateX(-100%);
+            transition: transform 0.8s ease;
+            z-index: -1;
+        }
+
+        .view-project-btn:hover::before, .view-project-btn:focus::before {
+            transform: translateX(100%);
+        }
+
+        .view-project-btn:hover, .view-project-btn:focus {
+            transform: translateY(-8px) scale(1.05);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            outline: none;
+        }
+
+        .view-project-btn:active {
+            transform: translateY(0) scale(1);
+        }
+
+        .icon {
+            font-size: clamp(1.4rem, 4vw, 1.8rem);
+        }
+
+        /* Project Viewer Modal */
+        .project-viewer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(10px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .project-viewer.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .viewer-container {
+            width: 90vw;
+            height: 80vh;
+            background: rgba(10, 10, 10, 0.95);
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+        }
+
+        .viewer-header {
+            padding: 15px 20px;
+            background: rgba(20, 20, 20, 0.8);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .viewer-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .close-viewer {
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: #f0f0f0;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .close-viewer:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.1);
+        }
+
+        .viewer-content {
+            width: 100%;
+            height: calc(100% - 60px);
+            border: none;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .projects-section {
+                padding: 50px 30px;
+            }
+            
+            .viewer-container {
+                width: 95vw;
+                height: 70vh;
+            }
+            
+            .section-title {
+                font-size: 2.2rem;
+            }
+            
+            .view-project-btn {
+                padding: 16px 35px;
+                font-size: 1.2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .projects-section {
+                padding: 40px 20px;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .view-project-btn {
+                padding: 14px 30px;
+                font-size: 1.1rem;
+                gap: 12px;
+            }
+            
+            .icon {
+                font-size: 1.5rem;
+            }
+            
+            .viewer-container {
+                width: 98vw;
+                height: 60vh;
+            }
+            
+            .viewer-header {
+                padding: 12px 15px;
+            }
+        }
+
+        /* Touch device optimizations */
+        @media (hover: none) and (pointer: coarse) {
+            .view-project-btn:hover {
+                transform: none;
+                box-shadow: none;
+            }
+            
+            .view-project-btn:active {
+                transform: translateY(-5px);
+                box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Stars Background -->
+    <div class="stars" id="stars"></div>
+    
+    <!-- Back to Home -->
+    <a href="index.html" class="back-home" aria-label="Back to Home">← Back</a>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="projects-section">
+            <h2 class="section-title">Past Projects</h2>
+            
+            <div class="project-info">
+                <p>Here's a showcase of my latest creative work. This project demonstrates my skills in web design, development, and user experience.</p>
+                <p>Click the button below to view the project in a mini window.</p>
+            </div>
+
+            <button class="view-project-btn" onclick="openProjectViewer('myproject.html', 'My Creative Project')">
+                <span class="icon">👁️</span>
+                View Project
+            </button>
+        </div>
+    </div>
+
+    <!-- Project Viewer Modal -->
+    <div class="project-viewer" id="projectViewer">
+        <div class="viewer-container">
+            <div class="viewer-header">
+                <div class="viewer-title" id="viewerTitle">My Creative Project</div>
+                <button class="close-viewer" onclick="closeProjectViewer()">×</button>
+            </div>
+            <iframe class="viewer-content" id="projectFrame" sandbox="allow-same-origin allow-scripts allow-popups allow-forms"></iframe>
+        </div>
+    </div>
+
+    <script>
+        // Create sparkling stars
+        function createStars() {
+            const starsContainer = document.getElementById('stars');
+            const starCount = window.innerWidth < 768 ? 60 : 100;
+            
+            starsContainer.innerHTML = '';
+            
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                
+                // Random properties
+                const size = Math.random() * 2 + 1;
+                const posX = Math.random() * 100;
+                const posY = Math.random() * 100;
+                const duration = Math.random() * 4 + 2;
+                const opacity = Math.random() * 0.6 + 0.4;
+                const delay = Math.random() * 3;
+                
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                star.style.left = `${posX}%`;
+                star.style.top = `${posY}%`;
+                star.style.setProperty('--duration', `${duration}s`);
+                star.style.setProperty('--opacity', opacity);
+                star.style.animationDelay = `${delay}s`;
+                
+                starsContainer.appendChild(star);
+            }
+        }
+
+        // Project Viewer Functions
+        function openProjectViewer(projectFile, title) {
+            const viewer = document.getElementById('projectViewer');
+            const frame = document.getElementById('projectFrame');
+            const titleElement = document.getElementById('viewerTitle');
+            
+            titleElement.textContent = title;
+            frame.src = projectFile;
+            viewer.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeProjectViewer() {
+            const viewer = document.getElementById('projectViewer');
+            const frame = document.getElementById('projectFrame');
+            
+            viewer.classList.remove('active');
+            frame.src = '';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close viewer when clicking outside
+        document.getElementById('projectViewer').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeProjectViewer();
+            }
+        });
+
+        // Close viewer with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeProjectViewer();
+            }
+        });
+
+        // Initialize stars on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            createStars();
+        });
+
+        // Handle resize events
+        window.addEventListener('resize', () => {
+            createStars();
+        });
+        
+        // Prevent zoom on mobile double-tap
+        let lastTouchEnd = 0;
+        document.addEventListener('touchend', function (event) {
+            const now = (new Date()).getTime();
+            if (now - lastTouchEnd <= 300) {
+                event.preventDefault();
+            }
+            lastTouchEnd = now;
+        }, false);
+    </script>
+</body>
+</html>
