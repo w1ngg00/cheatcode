@@ -80,6 +80,8 @@
             backdrop-filter: blur(10px);
             background: rgba(0, 0, 0, 0.5);
             border: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 10; /* Added explicit z-index to ensure it's clickable */
+            cursor: pointer; /* Added cursor pointer for better UX */
         }
 
         .back-home:hover, .back-home:focus {
@@ -298,7 +300,7 @@
             <div class="contact-info">
                 <p>
                     <span>📧 Email:</span>
-                    <a href="mailto:winggbusiness@gmail.com" style="color: #3b82f6; text-decoration: none;">winggbusiness@gmail.com</a>
+                    <a href="mailto:winggbusiness@outlook.com" style="color: #3b82f6; text-decoration: none;">winggbusiness@gmail.com</a>
                 </p>
                 <p>
                     <span>📱 WhatsApp:</span>
@@ -307,7 +309,7 @@
             </div>
 
             <div class="contact-buttons">
-                <a href="mailto:winggbusiness@gmail.com" class="contact-btn email-btn" target="_blank">
+                <a href="mailto:winggbusiness@outlook.com" class="contact-btn email-btn" target="_blank">
                     <span class="icon">📧</span>
                     Send Email
                 </a>
